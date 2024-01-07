@@ -8,7 +8,10 @@ var r = RandomNumberGenerator.new()
 func _init():
 	pass
 
-func randomFloorTile():
+func getRandomFloorTile():
+	pass
+
+func randomFloorTileModel():
 	var random = r.randi() % 3
 	match random:
 		0:
