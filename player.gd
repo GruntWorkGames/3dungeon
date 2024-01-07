@@ -15,19 +15,21 @@ func _ready():
 	pass
 	
 func _input(event):
-	var input_dir = Input.get_vector("left", "right", "up", "down")
-	if event.is_action_pressed("left"):
-		move("left")
-	else: if event.is_action_pressed("right"):
-		move("right")
-	else: if event.is_action_pressed("up"):
-		move("up")
-	else: if event.is_action_pressed("down"):
-		move("down")			
-
-func _physics_process(delta):
 	if Input.is_action_just_pressed("exit"):
 		get_tree().quit()	
+		
+	if event.is_action_pressed("left"):
+		move("left")
+		return
+	else: if event.is_action_pressed("right"):
+		move("right")
+		return
+	else: if event.is_action_pressed("up"):
+		move("up")
+		return
+	else: if event.is_action_pressed("down"):
+		move("down")			
+		return
 
 func move(dir):
 	if !isMoving:
