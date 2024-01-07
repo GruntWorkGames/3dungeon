@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bs1sucfk5onqi"]
+
+[ext_resource type="ArrayMesh" uid="uid://4htewyefei62" path="res://model/grassCube.obj" id="1_lsqbo"]
+[ext_resource type="PackedScene" uid="uid://bnb63nx7c27hf" path="res://model/wall3.glb" id="2_bqvyr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_27tge"]
+size = Vector3(1.99527, 2.01305, 2.01204)
+
+[node name="GrassCube" type="MeshInstance3D"]
+mesh = ExtResource("1_lsqbo")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="GrassCube" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = ExtResource("1_lsqbo")
+skeleton = NodePath("../../../..")
+
+[node name="wall3" parent="StaticBody3D" instance=ExtResource("2_bqvyr")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00430048, 1.01171, 0.00200602)
+shape = SubResource("BoxShape3D_27tge")

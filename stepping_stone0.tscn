@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ct4m5ihd8l4s1"]
+
+[ext_resource type="PackedScene" uid="uid://b6p6f1wp0tn2x" path="res://model/stepping_stone0.glb" id="1_q3uoa"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="stepping_stone0" parent="." instance=ExtResource("1_q3uoa")]
+transform = Transform3D(0.315, 0, 0, 0, 0.315, 0, 0, 0, 0.315, 0, 0, 0)
