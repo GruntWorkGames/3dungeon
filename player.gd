@@ -6,6 +6,9 @@ func _ready():
 	pass
 
 func face_dir(dir):
+	if isMoving:
+		return
+		
 	var tweenRot = create_tween()
 	var rotSpeed = 0.1
 
@@ -22,7 +25,6 @@ func face_dir(dir):
 		"down":
 			var target_ang = _get_tar_rotation(180)
 			tweenRot.tween_property(self, "rotation:y", target_ang, rotSpeed)
-		
 
 func _get_tar_rotation(tarAngle):
 	var diff_ang = deg_to_rad(tarAngle) - rotation.y
@@ -30,28 +32,30 @@ func _get_tar_rotation(tarAngle):
 	return rotation.y + diff_ang
 
 func move(dir, callback):
-	if !isMoving:
-		isMoving = true
-		var newpos = Vector3(position)
-		var tweenPos = get_tree().create_tween()
-		var dist = 2
-		var speed = 0.3
+	if isMoving:
+		return
+		
+	isMoving = true
+	var newpos = Vector3(position)
+	var tweenPos = get_tree().create_tween()
+	var dist = 2
+	var speed = 0.3
 
-		match dir:
-			"left":
-				tweenPos.tween_property(self, "position:x", newpos.x - dist, speed).set_trans(Tween.TRANS_CUBIC)
-				newpos.x = newpos.x - dist # use for snap to grid
-			"right":
-				tweenPos.tween_property(self, "position:x", newpos.x + dist, speed).set_trans(Tween.TRANS_CUBIC)
-				newpos.x = newpos.x + dist
-			"up":
-				tweenPos.tween_property(self, "position:z", newpos.z - dist, speed).set_trans(Tween.TRANS_CUBIC)
-				newpos.z = newpos.z - dist
-			"down":
-				tweenPos.tween_property(self, "position:z", newpos.z + dist, speed).set_trans(Tween.TRANS_CUBIC)
-				newpos.z = newpos.z + dist
-		tweenPos.tween_callback(_done.bind(newpos))
-		tweenPos.tween_callback(callback)
+	match dir:
+		"left":
+			tweenPos.tween_property(self, "position:x", newpos.x - dist, speed).set_trans(Tween.TRANS_CUBIC)
+			newpos.x = newpos.x - dist # use for snap to grid
+		"right":
+			tweenPos.tween_property(self, "position:x", newpos.x + dist, speed).set_trans(Tween.TRANS_CUBIC)
+			newpos.x = newpos.x + dist
+		"up":
+			tweenPos.tween_property(self, "position:z", newpos.z - dist, speed).set_trans(Tween.TRANS_CUBIC)
+			newpos.z = newpos.z - dist
+		"down":
+			tweenPos.tween_property(self, "position:z", newpos.z + dist, speed).set_trans(Tween.TRANS_CUBIC)
+			newpos.z = newpos.z + dist
+	tweenPos.tween_callback(_done.bind(newpos))
+	tweenPos.tween_callback(callback)
 
 func _done(landingPos):
 	position = landingPos # snap to position
