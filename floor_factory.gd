@@ -25,10 +25,8 @@ func generate(size, numOpenTiles):
 			numTiles += 1
 		floordata.walls[cx][cy] = false
 		
-		var odds = r.randi_range(1,4)
-		
 		#randomize direction
-		if((r.randi() % odds) == odds - 1):
+		if r.randi_range(0,2) == 2:
 			cdir = r.randi_range(0,3)
 			
 		# move the controller

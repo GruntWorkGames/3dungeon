@@ -2,9 +2,6 @@ extends CharacterBody3D
 
 var isMoving = false
 
-func _ready():
-	pass
-
 func face_dir(dir):
 	if isMoving:
 		return
@@ -57,6 +54,6 @@ func move(dir, callback):
 	tweenPos.tween_callback(_done.bind(newpos))
 	tweenPos.tween_callback(callback)
 
-func _done(landingPos):
-	position = landingPos # snap to position
+func _done(newpos):
+	position = newpos # snap to position
 	isMoving = false

@@ -8,8 +8,8 @@ func _ready():
 
 func _input(event):
 	_checkExit()
-	_checkMouse(event)
-
+	if _checkMouse(event):
+		return
 	if event.is_action_pressed("left"):
 		%player.face_dir("left")
 		if _can_move(%player,"left"):
@@ -42,6 +42,8 @@ func _checkMouse(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
 		floor_builder.createmap(self)
 		%player.position = floor_builder.getRandomTilePos()
+		return true
+	return false	
 
 func _can_move(entity, dir):
 	var tile = floor_builder.posToTile(entity.position)
