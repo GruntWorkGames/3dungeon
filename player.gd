@@ -11,13 +11,23 @@ func face_dir(dir):
 
 	match dir:
 		"left":
-			tweenRot.tween_property(self, "rotation:y", deg_to_rad(90), rotSpeed)
+			var target_ang = _get_tar_rotation(90)
+			tweenRot.tween_property(self, "rotation:y", target_ang, rotSpeed)
 		"right":
-			tweenRot.tween_property(self, "rotation:y", deg_to_rad(-90), rotSpeed)
+			var target_ang = _get_tar_rotation(-90)
+			tweenRot.tween_property(self, "rotation:y", target_ang, rotSpeed)
 		"up":
-			tweenRot.tween_property(self, "rotation:y", deg_to_rad(0), rotSpeed)
+			var target_ang = _get_tar_rotation(0)
+			tweenRot.tween_property(self, "rotation:y", target_ang, rotSpeed)
 		"down":
-			tweenRot.tween_property(self, "rotation:y", deg_to_rad(-180), rotSpeed)
+			var target_ang = _get_tar_rotation(180)
+			tweenRot.tween_property(self, "rotation:y", target_ang, rotSpeed)
+		
+
+func _get_tar_rotation(tarAngle):
+	var diff_ang = deg_to_rad(tarAngle) - rotation.y
+	diff_ang = wrapf(diff_ang, -PI, PI)
+	return rotation.y + diff_ang
 
 func move(dir, callback):
 	if !isMoving:
