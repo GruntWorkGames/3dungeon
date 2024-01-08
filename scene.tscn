@@ -13,7 +13,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_r28hv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dr5xf"]
-albedo_color = Color(0.392157, 0.219608, 0.12549, 1)
+albedo_color = Color(0, 0, 0, 1)
 metallic_specular = 0.0
 emission = Color(0.431373, 0.431373, 0.431373, 1)
 emission_energy_multiplier = 3.35
@@ -41,14 +41,14 @@ camera_attributes = SubResource("CameraAttributesPractical_tsmyh")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.960313, 0.278924, 0, -0.278924, 0.960313, -41.9369, 32.7844, -23.0383)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0733194, -0.841602, -0.0347767)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
 shape = SubResource("BoxShape3D_r28hv")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="StaticBody3D/CollisionShape3D"]
+[node name="CSGBox3D" type="CSGBox3D" parent="ground/CollisionShape3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 368.327, 0.358193, 65.4958)
 use_collision = true
 size = Vector3(1553.4, 1, 1699.76)
@@ -60,7 +60,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4.32639, 6)
 script = ExtResource("1_n24fd")
 
 [node name="character3" parent="player" instance=ExtResource("5_1ye42")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.053, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.946494, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="player"]
 visible = false

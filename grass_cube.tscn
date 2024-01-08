@@ -21,7 +21,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0322113, 0.0471125, 0.01321
 visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00430048, 1.01171, 0.00200602)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_27tge")
 
 [node name="wild_cube" parent="." instance=ExtResource("3_40ekp")]

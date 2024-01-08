@@ -19,10 +19,10 @@ func createmap(s):
 	_floor = floorfactory.generate(floorsize, numSpaces)
 	_buildFromFloor(_floor, floorsize)
 
-func _buildFromFloor(floor, floorsize):
+func _buildFromFloor(flr, floorsize):
 	for x in floorsize.x:
 		for z in floorsize.z:
-			var isWall = floor.walls[x][z]
+			var isWall = flr.walls[x][z]
 			if isWall:
 				var block = _create(Vector3(x * blocksize, 0, z * blocksize))
 				blocks.append(block)
