@@ -1,6 +1,8 @@
 extends Node3D
 
 var floor_builder = FloorBuilder.new()
+var shouldContinue = false
+var lastDirection
 
 func _ready():
 	floor_builder.createmap(self)
@@ -10,29 +12,37 @@ func _input(event):
 	_checkExit()
 	if _checkMouse(event):
 		return
+		
+	# can only occur if from keyboard
+	if !event.accumulate(event) and event.is_released():
+		shouldContinue = false
+	
 	if event.is_action_pressed("left"):
-		%player.face_dir("left")
-		if _can_move(%player,"left"):
-			%player.move("left",_playerFinishedMove)
+		_move_entity(%player, "left")
+		shouldContinue = true
 		return
 	else: if event.is_action_pressed("right"):
-		%player.face_dir("right")
-		if _can_move(%player,"right"):
-			%player.move("right",_playerFinishedMove)
+		_move_entity(%player, "right")
+		shouldContinue = true
 		return
 	else: if event.is_action_pressed("up"):
-		%player.face_dir("up")
-		if _can_move(%player,"up"):
-			%player.move("up",_playerFinishedMove)
+		_move_entity(%player, "up")
+		shouldContinue = true
 		return
 	else: if event.is_action_pressed("down"):
-		%player.face_dir("down")
-		if _can_move(%player,"down"):
-			%player.move("down",_playerFinishedMove)
+		_move_entity(%player, "down")
+		shouldContinue = true
 		return
 
+func _move_entity(entity, direction):
+	entity.face_dir(direction)
+	if _can_move(entity,direction):
+		lastDirection = direction
+		entity.move(direction,_playerFinishedMove)
+
 func _playerFinishedMove():
-	pass
+	if shouldContinue:
+		_move_entity(%player,lastDirection)
 
 func _checkExit():
 	if Input.is_action_just_pressed("exit"):
