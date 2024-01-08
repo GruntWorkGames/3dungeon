@@ -15,23 +15,26 @@ func _input(event):
 
 	if event.is_action_pressed("left"):
 		%player.face_dir("left")
-		%player.move("left",_playerFinishedMove)
+		if _can_move(%player,"left"):
+			%player.move("left",_playerFinishedMove)
 		return
 	else: if event.is_action_pressed("right"):
 		%player.face_dir("right")
-		%player.move("right",_playerFinishedMove)
+		if _can_move(%player,"right"):
+			%player.move("right",_playerFinishedMove)
 		return
 	else: if event.is_action_pressed("up"):
 		%player.face_dir("up")
-		%player.move("up",_playerFinishedMove)
+		if _can_move(%player,"up"):
+			%player.move("up",_playerFinishedMove)
 		return
 	else: if event.is_action_pressed("down"):
 		%player.face_dir("down")
-		%player.move("down",_playerFinishedMove)
+		if _can_move(%player,"down"):
+			%player.move("down",_playerFinishedMove)
 		return
 
 func _playerFinishedMove():
-	print("player finished move")
 	pass
 
 func _checkExit():
@@ -43,3 +46,21 @@ func _checkMouse(event):
 		floor_builder.createmap(self)
 		%player.position = floor_builder.getRandomTilePos()
 		%player.position.z = initialZ
+
+func _can_move(entity, dir):
+	var tile = floor_builder.posToTile(entity.position)
+	var pos = entity.position
+	print("")
+	print(pos)
+	print(tile)
+	print("")
+	match dir:
+		"up":
+			tile.z = tile.z - 1
+		"down":
+			tile.z = tile.z + 1
+		"left":
+			tile.x = tile.x - 1
+		"right":
+			tile.x = tile.x + 1
+	return floor_builder.is_tile_open(tile)

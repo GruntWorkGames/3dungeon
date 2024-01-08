@@ -4,6 +4,7 @@ var grassblock = preload("res://grass_cube.tscn")
 const blocksize = 2
 var blocks = []
 const numSpaces = 40
+var _floorsize = Vector3(8,0,12)
 var _floor
 var floorTiles = []
 var wallTiles = [] 
@@ -15,9 +16,8 @@ func createmap(s):
 	scene = s
 	_clearblocks()
 	var floorfactory = FloorFactory.new()
-	var floorsize = Vector3(8,0,12)
-	_floor = floorfactory.generate(floorsize, numSpaces)
-	_buildFromFloor(_floor, floorsize)
+	_floor = floorfactory.generate(_floorsize, numSpaces)
+	_buildFromFloor(_floor, _floorsize)
 
 func _buildFromFloor(flr, floorsize):
 	for x in floorsize.x:
@@ -54,10 +54,18 @@ func _createSteppingStone(pos):
 func getRandomTilePos():
 	var index = r.randi_range(0,floorTiles.size()-1)
 	var pos = floorTiles[index];
-	return _tileToPos(pos)
+	return tileToPos(pos)
 
-func _tileToPos(tile):
-	return Vector3(tile.x*2, 1, tile.z*2)
+func tileToPos(tile):
+	return Vector3(tile.x * blocksize, 1, tile.z * blocksize)
 
-func _posToTile(pos):
-	return Vector3(pos.z / 2, 1, pos.z/2)
+func posToTile(pos):
+	return Vector3(pos.x / blocksize, 1, pos.z / blocksize)
+
+func is_tile_open(tile):
+	if tile.x >= _floorsize.x || tile.z >= _floorsize.z:
+		return false
+	if tile.z <= 0 || tile.x <= 0:
+		return false
+	var val = !_floor.walls[tile.x][tile.z]
+	return val
