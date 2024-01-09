@@ -10,9 +10,11 @@ func _ready():
 
 func _input(event):
 	_checkEscape()
+	
+	if !event is InputEventKey:
+		return
 		
-	# can only occur if from keyboard
-	if !event.accumulate(event) and event.is_released():
+	if event.is_released():
 		shouldContinue = false
 	
 	if event.is_action_pressed("left"):
