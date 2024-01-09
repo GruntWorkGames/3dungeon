@@ -10,8 +10,6 @@ func _ready():
 
 func _input(event):
 	_checkEscape()
-	if _checkMouse(event):
-		return
 		
 	# can only occur if from keyboard
 	if !event.accumulate(event) and event.is_released():
@@ -34,6 +32,9 @@ func _input(event):
 		shouldContinue = true
 		return
 
+func swipe_event(direction):
+	_move_entity(%player, direction)
+
 func _move_entity(entity, direction):
 	entity.face_dir(direction)
 	if _can_move(entity,direction):
@@ -47,13 +48,6 @@ func _playerFinishedMove():
 func _checkEscape():
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
- 
-func _checkMouse(event):
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
-		floor_builder.createmap(self)
-		%player.position = floor_builder.getRandomTilePos()
-		return true
-	return false
 
 func _can_move(entity, dir):
 	var tile = floor_builder.posToTile(entity.position)

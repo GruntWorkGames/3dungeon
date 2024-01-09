@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://cfmduwbja6y6g"]
+[gd_scene load_steps=15 format=3 uid="uid://cfmduwbja6y6g"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_n24fd"]
 [ext_resource type="Script" path="res://scripts/scene.gd" id="1_usuje"]
 [ext_resource type="ArrayMesh" uid="uid://bec3xx1dnsad0" path="res://model/chest1.obj" id="3_snhyo"]
+[ext_resource type="Script" path="res://scripts/swipe_control.gd" id="4_g6fwi"]
 [ext_resource type="PackedScene" uid="uid://b6utrt80fgpp5" path="res://model/character2.glb" id="5_1ye42"]
 [ext_resource type="PackedScene" uid="uid://1p3krpd0lc1v" path="res://model/character3.glb" id="5_whvlv"]
 
@@ -30,6 +31,9 @@ albedo_color = Color(0.215686, 0.192157, 0.172549, 1)
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_usuje")
+
+[node name="SwipeControl" type="Node" parent="."]
+script = ExtResource("4_g6fwi")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 2.73954e-08, 1.17332e-08, -2.47017e-08, 0.54165, 0.840604, 1.66734e-08, -0.840604, 0.54165, 6.9357, 14.9686, 22.147)
