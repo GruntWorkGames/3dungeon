@@ -9,7 +9,7 @@ func _ready():
 	%player.position = floor_builder.getRandomTilePos()
 
 func _input(event):
-	_checkExit()
+	_checkEscape()
 	if _checkMouse(event):
 		return
 		
@@ -44,8 +44,8 @@ func _playerFinishedMove():
 	if shouldContinue:
 		_move_entity(%player,lastDirection)
 
-func _checkExit():
-	if Input.is_action_just_pressed("exit"):
+func _checkEscape():
+	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
  
 func _checkMouse(event):
@@ -53,7 +53,7 @@ func _checkMouse(event):
 		floor_builder.createmap(self)
 		%player.position = floor_builder.getRandomTilePos()
 		return true
-	return false	
+	return false
 
 func _can_move(entity, dir):
 	var tile = floor_builder.posToTile(entity.position)
