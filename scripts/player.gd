@@ -5,6 +5,7 @@ var animNode
 
 func _ready():
 	animNode = get_node("character3/AnimationPlayer")
+	animNode.idle()
 
 func face_dir(dir):
 	if isMoving:
