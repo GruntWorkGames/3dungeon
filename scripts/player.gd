@@ -1,6 +1,10 @@
 extends CharacterBody3D
 
 var isMoving = false
+var animNode
+
+func _ready():
+	animNode = get_node("character3/AnimationPlayer")
 
 func face_dir(dir):
 	if isMoving:
@@ -40,20 +44,22 @@ func move(dir, callback):
 
 	match dir:
 		"left":
-			tweenPos.tween_property(self, "position:x", newpos.x - dist, speed).set_trans(Tween.TRANS_CUBIC)
+			tweenPos.tween_property(self, "position:x", newpos.x - dist, speed).set_trans(Tween.TRANS_LINEAR)
 			newpos.x = newpos.x - dist # use for snap to grid
 		"right":
-			tweenPos.tween_property(self, "position:x", newpos.x + dist, speed).set_trans(Tween.TRANS_CUBIC)
+			tweenPos.tween_property(self, "position:x", newpos.x + dist, speed).set_trans(Tween.TRANS_LINEAR)
 			newpos.x = newpos.x + dist
 		"up":
-			tweenPos.tween_property(self, "position:z", newpos.z - dist, speed).set_trans(Tween.TRANS_CUBIC)
+			tweenPos.tween_property(self, "position:z", newpos.z - dist, speed).set_trans(Tween.TRANS_LINEAR)
 			newpos.z = newpos.z - dist
 		"down":
-			tweenPos.tween_property(self, "position:z", newpos.z + dist, speed).set_trans(Tween.TRANS_CUBIC)
+			tweenPos.tween_property(self, "position:z", newpos.z + dist, speed).set_trans(Tween.TRANS_LINEAR)
 			newpos.z = newpos.z + dist
 	tweenPos.tween_callback(_done.bind(newpos))
 	tweenPos.tween_callback(callback)
+	animNode.run()
 
 func _done(newpos):
 	position = newpos # snap to position
 	isMoving = false
+	animNode.idle()
