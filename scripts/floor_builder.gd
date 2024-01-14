@@ -57,10 +57,10 @@ func getRandomTilePos():
 	return tileToPos(tile)
 
 func tileToPos(tile):
-	return Vector3(tile.x * blocksize, 1, tile.z * blocksize)
+	return Vector3(tile.x * blocksize, 0.2, tile.z * blocksize)
 
 func posToTile(pos):
-	return Vector3(pos.x / blocksize, 1, pos.z / blocksize)
+	return Vector3(pos.x / blocksize, 0.2, pos.z / blocksize)
 
 func is_tile_open(tile):
 	if tile.x >= floorsize.x || tile.z >= floorsize.z:

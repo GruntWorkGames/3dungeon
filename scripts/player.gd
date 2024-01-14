@@ -4,7 +4,8 @@ var isMoving = false
 var animNode
 
 func _ready():
-	animNode = get_node("character3/AnimationPlayer")
+	pass
+	animNode = get_node("character4/AnimationPlayer")
 	animNode.idle()
 
 func face_dir(dir):

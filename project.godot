@@ -53,8 +53,9 @@ quit={
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_s3tc_bptc=true
 textures/vram_compression/import_etc2_astc=true
 gl_compatibility/item_buffer_size=24384
+shader_compiler/shader_cache/enabled=false
 mesh_lod/lod_change/threshold_pixels=6.0
