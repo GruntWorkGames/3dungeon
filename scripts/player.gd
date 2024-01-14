@@ -5,7 +5,7 @@ var animNode
 
 func _ready():
 	pass
-	animNode = get_node("character4/AnimationPlayer")
+	animNode = get_node("player_model/AnimationPlayer")
 	animNode.idle()
 
 func face_dir(dir):
