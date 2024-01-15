@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://nxuyy7fm1b8x"]
+
+[ext_resource type="PackedScene" uid="uid://btgem7jjymdbb" path="res://model/stepping_stone4.glb" id="1_3ynof"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="stepping_stone4" parent="." instance=ExtResource("1_3ynof")]

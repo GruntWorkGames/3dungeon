@@ -10,6 +10,7 @@ func _ready():
 
 func _input(event):
 	_checkEscape()
+	_checkSpace()
 	
 	if !event is InputEventKey:
 		return
@@ -33,6 +34,11 @@ func _input(event):
 		_move_entity(%player, "down")
 		shouldContinue = true
 		return
+
+func _checkSpace():
+	if Input.is_action_just_pressed("newLevel"):
+		floor_builder.createmap(self)
+		%player.position = floor_builder.getRandomTilePos()
 
 func swipe_event(direction):
 	_move_entity(%player, direction)
