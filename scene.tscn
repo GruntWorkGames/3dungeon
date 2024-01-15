@@ -1,15 +1,9 @@
-[gd_scene load_steps=28 format=3 uid="uid://cfmduwbja6y6g"]
+[gd_scene load_steps=23 format=3 uid="uid://cfmduwbja6y6g"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_n24fd"]
 [ext_resource type="Script" path="res://scripts/scene.gd" id="1_usuje"]
 [ext_resource type="Script" path="res://scripts/swipe_control.gd" id="4_g6fwi"]
 [ext_resource type="Script" path="res://AnimationPlayer.gd" id="5_1irjl"]
-
-[sub_resource type="Environment" id="Environment_2p6uw"]
-
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_tsmyh"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_r28hv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dr5xf"]
 albedo_color = Color(0, 0, 0, 1)
@@ -988,10 +982,6 @@ _data = {
 "run_001": SubResource("Animation_wasyx")
 }
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_i22gv"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_as62w"]
-
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_usuje")
 
@@ -1001,29 +991,27 @@ script = ExtResource("4_g6fwi")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 2.73954e-08, 1.17332e-08, -2.47017e-08, 0.54165, 0.840604, 1.66734e-08, -0.840604, 0.54165, 6.9357, 14.9686, 22.147)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_2p6uw")
-camera_attributes = SubResource("CameraAttributesPractical_tsmyh")
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.770658, 0.467968, -0.432541, -0.238433, 0.841212, 0.485295, 0.590962, -0.270864, 0.759866, 32.3653, 59.5896, 2.48684)
+light_color = Color(0.980392, 0.980392, 0.980392, 1)
+light_energy = 1.392
+light_volumetric_fog_energy = 1.006
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.960313, 0.278924, 0, -0.278924, 0.960313, -41.9369, 32.7844, -23.0383)
+transform = Transform3D(0.474088, -0.273807, 0.836822, -2.40979e-08, 0.950418, 0.310975, -0.880477, -0.14743, 0.450582, 10.9802, 62.4061, 11.5123)
+light_color = Color(0.729412, 0.729412, 0.729412, 1)
+light_energy = 1.392
+light_volumetric_fog_energy = 1.006
 
-[node name="ground" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0733194, -0.841602, -0.0347767)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ground"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
-shape = SubResource("BoxShape3D_r28hv")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="ground/CollisionShape3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 368.327, 0.358193, 65.4958)
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 368.254, -0.533409, 65.461)
 use_collision = true
 size = Vector3(1553.4, 1, 1699.76)
 material = SubResource("StandardMaterial3D_dr5xf")
 
 [node name="player" type="CharacterBody3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 4, 0.215004, 6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.122556, 6)
 script = ExtResource("1_n24fd")
 
 [node name="player_model" type="Node3D" parent="player"]
@@ -1168,15 +1156,6 @@ libraries = {
 "": SubResource("AnimationLibrary_mr551")
 }
 script = ExtResource("5_1irjl")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.813217, 0)
-visible = false
-mesh = SubResource("CapsuleMesh_i22gv")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="player"]
-transform = Transform3D(1.11, 0, 0, 0, 1.11, 0, 0, 0, 1.11, 0, 0.980306, 0)
-shape = SubResource("CapsuleShape3D_as62w")
 
 [node name="camOrigin" type="Node3D" parent="player"]
 

@@ -1,6 +1,6 @@
 class_name FloorBuilder extends Node3D
 
-var grassblock = preload("res://grass_cube.tscn")
+var grassblock = preload("res://wall.tscn")
 const blocksize = 2
 var blocks = []
 const numSpaces = 40
@@ -18,6 +18,7 @@ func createmap(s):
 	var floorfactory = FloorFactory.new()
 	_floor = floorfactory.generate(floorsize, numSpaces)
 	_buildFromFloor(_floor, floorsize)
+	_addLights()
 
 func _buildFromFloor(flr, flrsize):
 	for x in flrsize.x:
@@ -38,6 +39,9 @@ func _clearblocks():
 	blocks.clear()
 	wallTiles.clear()
 	floorTiles.clear()
+
+func _addLights():
+	pass 
 
 func _create(pos):
 	var instance = grassblock.instantiate()

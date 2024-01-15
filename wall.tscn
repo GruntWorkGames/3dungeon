@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bs1sucfk5onqi"]
+
+[ext_resource type="ArrayMesh" uid="uid://4htewyefei62" path="res://model/grassCube.obj" id="1_2doyu"]
+[ext_resource type="PackedScene" uid="uid://cldx74k054oxp" path="res://model/wild_cube.glb" id="2_abvv8"]
+
+[node name="GrassCube" type="MeshInstance3D"]
+mesh = ExtResource("1_2doyu")
+
+[node name="wild_cube" parent="." instance=ExtResource("2_abvv8")]
