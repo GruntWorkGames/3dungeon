@@ -1156,10 +1156,3 @@ libraries = {
 "": SubResource("AnimationLibrary_mr551")
 }
 script = ExtResource("5_1irjl")
-
-[node name="camOrigin" type="Node3D" parent="player"]
-
-[node name="SpringArm3D" type="SpringArm3D" parent="player/camOrigin"]
-transform = Transform3D(1, -1.81221e-07, 1.17332e-08, -2.85839e-08, 0.770235, 0.63776, 8.43439e-09, -0.63776, 0.770236, 0, 3.85828, 3.19995)
-spring_length = 5.0
-margin = 0.5
