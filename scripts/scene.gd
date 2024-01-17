@@ -1,12 +1,17 @@
 extends Node3D
 
+var enemyPrefab = preload("res://enemy1.tscn")
 var floor_builder = FloorBuilder.new()
 var shouldContinue = false
 var lastDirection
+var enemies = []
+var aStar = AStar.new()
+var nextEnemy = null
 
 func _ready():
 	floor_builder.createmap(self)
 	%player.position = floor_builder.getRandomTilePos()
+	_placeEnemy()
 
 func _input(event):
 	_checkEscape()
@@ -35,10 +40,49 @@ func _input(event):
 		shouldContinue = true
 		return
 
+func _moveEnemies():
+	for enemy in enemies:
+		var enemyTile = floor_builder.posToTile(enemy.position)
+		var playerTile = floor_builder.posToTile(%player.position)
+		var path = aStar.find_path(enemyTile, playerTile, floor_builder.floor)
+		var nextTile = path[1]
+		var dir = _directionFromTo(enemyTile, nextTile)
+		enemy.face_dir(dir)
+		enemy.move(dir, enemyFinished)
+
+func enemyFinished():
+	pass
+
+func _directionFromTo(fromTile, toTile):
+	if fromTile.x == toTile.x:
+		if fromTile.z == toTile.z:
+			return "error1"
+		elif fromTile.z > toTile.z:
+			return "up"
+		else: return "down"
+	elif fromTile.z == toTile.z:
+		if fromTile.x == toTile.x:
+			return "error"
+		elif fromTile.x > toTile.x:
+			return "left"
+		else: return "right"
+	return "error2"
+
+func _placeEnemy():
+	var enemy = enemyPrefab.instantiate()
+	enemies.append(enemy)
+	enemy.position = floor_builder.getRandomTilePos()
+	add_child(enemy)
+
 func _checkSpace():
 	if Input.is_action_just_pressed("newLevel"):
 		floor_builder.createmap(self)
 		%player.position = floor_builder.getRandomTilePos()
+		
+		for enemy in enemies:
+			remove_child(enemy)
+		enemies.clear()
+		_placeEnemy()
 
 func swipe_event(direction):
 	_move_entity(%player, direction)
@@ -52,6 +96,7 @@ func _move_entity(entity, direction):
 func _playerFinishedMove():
 	if shouldContinue:
 		_move_entity(%player,lastDirection)
+	_moveEnemies()
 
 func _checkEscape():
 	if Input.is_action_just_pressed("quit"):

@@ -1,11 +1,11 @@
-extends CharacterBody3D
+class_name Character extends Node3D
 
 var isMoving = false
 var animNode
 
 func _ready():
 	pass
-	animNode = get_node("player_model/AnimationPlayer")
+	animNode = get_node("model/AnimationPlayer")
 	animNode.idle()
 
 func face_dir(dir):

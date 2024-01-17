@@ -1,5 +1,7 @@
 class_name FloorFactory extends Node
 
+# true == wall
+# false == open space 
 func generate(size, numOpenTiles):
 	var floordata = _fillFloorArray(size)
 
@@ -21,9 +23,9 @@ func generate(size, numOpenTiles):
 	while(numTiles < numOpenTiles):
 		# place a floor tile at controller pos
 		# if we havent already been in this tile, count it as placing a new one.
-		if(floordata.walls[cx][cy]):
+		if(floordata[cx][cy]):
 			numTiles += 1
-		floordata.walls[cx][cy] = false
+		floordata[cx][cy] = false
 		
 		#randomize direction
 		if r.randi_range(0,2) == 2:
@@ -44,12 +46,12 @@ func generate(size, numOpenTiles):
 	return floordata
 
 func _fillFloorArray(size):
-	var floordata = FloorData.new()
+	var floordata = []
 	for x in size.x:
 		var wallsz = []
-		floordata.walls.append(wallsz)
+		floordata.append(wallsz)
 		for z in size.z:
-			floordata.walls[x].append(true)
+			floordata[x].append(true)
 	return floordata
 
 func _lengthdir_x(length, angle):

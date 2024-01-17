@@ -5,7 +5,7 @@ const blocksize = 2
 var blocks = []
 const numSpaces = 40
 var floorsize = Vector3(8,0,12)
-var _floor
+var floor = []
 var floorTiles = []
 var wallTiles = [] 
 var decorator = FloorDecorator.new()
@@ -16,14 +16,14 @@ func createmap(s):
 	scene = s
 	_clearblocks()
 	var floorfactory = FloorFactory.new()
-	_floor = floorfactory.generate(floorsize, numSpaces)
-	_buildFromFloor(_floor, floorsize)
+	floor = floorfactory.generate(floorsize, numSpaces)
+	_buildFromFloor(floor, floorsize)
 	_addLights()
 
 func _buildFromFloor(flr, flrsize):
 	for x in flrsize.x:
 		for z in flrsize.z:
-			var isWall = flr.walls[x][z]
+			var isWall = flr[x][z]
 			if isWall:
 				var block = _create(Vector3(x * blocksize, 0, z * blocksize))
 				blocks.append(block)
@@ -61,15 +61,15 @@ func getRandomTilePos():
 	return tileToPos(tile)
 
 func tileToPos(tile):
-	return Vector3(tile.x * blocksize, 0.2, tile.z * blocksize)
+	return Vector3(tile.x * blocksize, tile.y, tile.z * blocksize)
 
 func posToTile(pos):
-	return Vector3(pos.x / blocksize, 0.2, pos.z / blocksize)
+	return Vector3(pos.x / blocksize, pos.y, pos.z / blocksize)
 
 func is_tile_open(tile):
 	if tile.x >= floorsize.x || tile.z >= floorsize.z:
 		return false
 	if tile.z <= 0 || tile.x <= 0:
 		return false
-	var val = !_floor.walls[tile.x][tile.z]
+	var val = !floor[tile.x][tile.z]
 	return val
