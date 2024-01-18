@@ -9,10 +9,16 @@ func find_path(start: Vector3, goal: Vector3, grid: Array) -> Array:
 
 	openSet.append(startNode)
 
+	var pathFound = false  # Flag variable to track if a path is found
+
 	while openSet.size() > 0:
+		if openSet.size() > 1500:
+			return []
+			
 		var currentNode = get_lowest_fscore_node(openSet)
 
 		if currentNode.pos == goalNode.pos:
+			pathFound = true
 			return reconstruct_path(currentNode)
 
 		openSet.erase(currentNode)
@@ -36,8 +42,13 @@ func find_path(start: Vector3, goal: Vector3, grid: Array) -> Array:
 			neighbor.hScore = get_distance(neighbor, goalNode)
 			neighbor.fScore = neighbor.gScore + neighbor.hScore
 
-	return []  # No path found
+	# If no path is found, return an empty array
+	if not pathFound:
+		return []
 
+	# Handle the case when the openSet becomes empty but pathFound is still false
+	return []
+	
 func get_lowest_fscore_node(nodes: Array) -> AStar_Node:
 	var lowestNode = nodes[0]
 
