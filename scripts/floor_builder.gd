@@ -3,9 +3,10 @@ class_name FloorBuilder extends Node3D
 var grassblock = preload("res://wall.tscn")
 const blocksize = 2
 var blocks = []
+var wallMesh = {} # map[(x,y,z)] = block
 const numSpaces = 40
-var floorsize = Vector3(8,0,12)
-var floor = []
+var floorsize = Vector2i(8, 12)
+var floor_ = []
 var floorTiles = []
 var wallTiles = [] 
 var decorator = FloorDecorator.new()
@@ -16,22 +17,25 @@ func createmap(s):
 	scene = s
 	_clearblocks()
 	var floorfactory = FloorFactory.new()
-	floor = floorfactory.generate(floorsize, numSpaces)
-	_buildFromFloor(floor, floorsize)
+	floor_ = floorfactory.generate(floorsize, numSpaces)
+	_buildFromFloor(floor_, floorsize)
 	_addLights()
 
 func _buildFromFloor(flr, flrsize):
 	for x in flrsize.x:
-		for z in flrsize.z:
-			var isWall = flr[x][z]
+		for y in flrsize.y:
+			var isWall = flr[x][y]
 			if isWall:
-				var block = _create(Vector3(x * blocksize, 0, z * blocksize))
+				var blockPos = Vector2i(x * blocksize, y * blocksize)
+				var tilePos = Vector2i(x, y)
+				var block = _create(blockPos)
 				blocks.append(block)
-				wallTiles.append(Vector3(x,0,z))
+				wallMesh[tilePos] = block;
+				wallTiles.append(tilePos)
 			else:
-				var tile = _createSteppingStone(Vector3(x * blocksize, 0, z * blocksize))
+				var tile = _createSteppingStone(Vector2i(x * blocksize, y * blocksize))
 				blocks.append(tile)
-				floorTiles.append(Vector3(x,0,z))
+				floorTiles.append(Vector2i(x, y))
 
 func _clearblocks():
 	for block in blocks:
@@ -41,35 +45,35 @@ func _clearblocks():
 	floorTiles.clear()
 
 func _addLights():
-	pass 
+	pass
 
 func _create(pos):
 	var instance = grassblock.instantiate()
-	instance.position = pos
+	instance.position = Vector3(pos.x, 0, pos.y)
 	scene.add_child(instance)
 	return instance
 
 func _createSteppingStone(pos):
 	var instance = decorator.randomFloorTileModel()
-	instance.position = pos;
+	instance.position = Vector3(pos.x, 0, pos.y);
 	scene.add_child(instance)
 	return instance
 
 func getRandomTilePos():
-	var index = r.randi_range(0,floorTiles.size()-1)
+	var index = r.randi_range(0, floorTiles.size()-1)
 	var tile = floorTiles[index];
 	return tileToPos(tile)
 
 func tileToPos(tile):
-	return Vector3(tile.x * blocksize, tile.y, tile.z * blocksize)
+	return Vector3(tile.x * blocksize, 0, tile.y * blocksize)
 
 func posToTile(pos):
-	return Vector3(pos.x / blocksize, pos.y, pos.z / blocksize)
+	return Vector2i(pos.x / blocksize, pos.z / blocksize)
 
 func is_tile_open(tile):
-	if tile.x >= floorsize.x || tile.z >= floorsize.z:
+	if tile.x >= floorsize.x || tile.y >= floorsize.y:
 		return false
-	if tile.z <= 0 || tile.x <= 0:
+	if tile.y <= 0 || tile.x <= 0:
 		return false
-	var val = !floor[tile.x][tile.z]
+	var val = !floor_[tile.x][tile.y]
 	return val

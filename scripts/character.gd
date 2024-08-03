@@ -39,7 +39,7 @@ func move(dir, callback):
 		return
 		
 	isMoving = true
-	var newpos = Vector3(position)
+	var newpos = (position)
 	var tweenPos = get_tree().create_tween()
 	var dist = 2
 	var speed = 0.3

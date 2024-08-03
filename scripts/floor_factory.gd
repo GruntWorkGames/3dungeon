@@ -7,7 +7,7 @@ func generate(size, numOpenTiles):
 
 	# set controller in center
 	var cx = size.x / 2
-	var cy = size.z / 2
+	var cy = size.y / 2
 	
 	var r = RandomNumberGenerator.new()
 
@@ -42,7 +42,7 @@ func generate(size, numOpenTiles):
 			cy += ydir
 		
 		cx = clamp(cx, 1, size.x - 2)
-		cy = clamp(cy, 1, size.z - 2)
+		cy = clamp(cy, 1, size.y - 2)
 	return floordata
 
 func _fillFloorArray(size):
@@ -50,7 +50,7 @@ func _fillFloorArray(size):
 	for x in size.x:
 		var wallsz = []
 		floordata.append(wallsz)
-		for z in size.z:
+		for y in size.y:
 			floordata[x].append(true)
 	return floordata
 
