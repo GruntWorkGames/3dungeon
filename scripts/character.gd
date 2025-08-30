@@ -2,12 +2,15 @@ class_name Character extends Node3D
 
 var isMoving = false
 var animNode
+var geometryInstance
 
 func _ready():
 	pass
 	animNode = get_node("model/AnimationPlayer")
 	animNode.idle()
-
+	geometryInstance = get_node("model/Armature/Skeleton3D/Character")
+	geometryInstance.transparency = 1.0
+ 
 func face_dir(dir):
 	if isMoving:
 		return

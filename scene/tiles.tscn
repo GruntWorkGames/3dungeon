@@ -1,0 +1,36 @@
+[gd_scene load_steps=9 format=3 uid="uid://87ieiyicwoup"]
+
+[ext_resource type="PackedScene" uid="uid://l2g84phmxear" path="res://model/block_dirt_path.blend" id="1_xhxtx"]
+[ext_resource type="PackedScene" uid="uid://cfuoc5pqrerp4" path="res://model/block_dirt_path_corner.blend" id="2_6u84g"]
+[ext_resource type="PackedScene" uid="uid://dg4wjfm1v0awh" path="res://model/block_dirt_path_t.blend" id="3_7jhky"]
+[ext_resource type="PackedScene" uid="uid://cq563crfp7gj6" path="res://model/block_grass.blend" id="4_4iouf"]
+[ext_resource type="PackedScene" uid="uid://dxikapcru0kjp" path="res://model/bush1.blend" id="5_up1tl"]
+[ext_resource type="ArrayMesh" uid="uid://4htewyefei62" path="res://model/grassCube.obj" id="6_hdd7h"]
+[ext_resource type="PackedScene" uid="uid://difhl1wy3tt5q" path="res://model/shield_rack.glb" id="7_58vko"]
+[ext_resource type="PackedScene" uid="uid://bma6lylqf4l2l" path="res://model/tree_fern.blend" id="8_4adek"]
+
+[node name="tiles" type="Node3D"]
+
+[node name="block_dirt_path" parent="." instance=ExtResource("1_xhxtx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.700843, 1.19209e-07, 0.31847)
+
+[node name="block_dirt_path_corner" parent="." instance=ExtResource("2_6u84g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.700843, 1.19209e-07, 0.31847)
+
+[node name="block_dirt_path_t" parent="." instance=ExtResource("3_7jhky")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.700843, 1.19209e-07, 0.31847)
+
+[node name="block_grass" parent="." instance=ExtResource("4_4iouf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.700843, 1.19209e-07, 0.31847)
+
+[node name="bush12" parent="." instance=ExtResource("5_up1tl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.700843, 1.19209e-07, 0.31847)
+
+[node name="GrassCube" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.700843, 1.19209e-07, 0.31847)
+mesh = ExtResource("6_hdd7h")
+
+[node name="shield_rack" parent="." instance=ExtResource("7_58vko")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.700843, 1.19209e-07, 0.31847)
+
+[node name="tree_fern" parent="." instance=ExtResource("8_4adek")]
